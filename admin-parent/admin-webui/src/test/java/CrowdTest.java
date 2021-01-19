@@ -1,7 +1,12 @@
 import com.home.entity.Admin;
 import com.home.mapper.AdminMapper;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,8 +21,9 @@ import java.sql.SQLException;
  * @date 2021/1/17 19:54
  */
 //在类上标记必要的注解 spring 整合junit
+@Data
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:mybatis/spring-persist-mybatis.xml"})
+@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml"})
 public class CrowdTest {
 
     @Autowired
@@ -25,6 +31,28 @@ public class CrowdTest {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    @Test
+    public void testLog(){
+        //1.想获取Logger对象
+        Logger logger = LoggerFactory.getLogger(CrowdTest.class);
+        //2.根据不同的日志级别打印日志
+        logger.debug("debug！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+        logger.debug("debug！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+        logger.debug("debug！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+
+        logger.info("info!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.info("info!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.info("info!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        logger.warn("worn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.warn("worn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.warn("worn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        logger.error("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.error("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        logger.error("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
 
     @Test
     public void testInsertAdmin(){
