@@ -1,5 +1,6 @@
 import com.home.entity.Admin;
 import com.home.mapper.AdminMapper;
+import com.home.service.AdminService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,6 +33,14 @@ public class CrowdTest {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private AdminService adminService;
+
+    @Test
+    public void TestTx(){
+        Admin admin = new Admin(null, "jerry", "123456", "杰瑞", "110@qq.com", null);
+        adminService.saveAdmin(admin);
+    }
     @Test
     public void testLog(){
         //1.想获取Logger对象
