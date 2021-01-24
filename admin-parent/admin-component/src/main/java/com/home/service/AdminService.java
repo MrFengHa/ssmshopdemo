@@ -2,6 +2,8 @@ package com.home.service;
 
 import com.home.entity.Admin;
 
+import java.util.List;
+
 /**
  * 文件描述
  *
@@ -14,4 +16,10 @@ public interface AdminService {
      * @param admin
      */
     void saveAdmin(Admin admin);
+
+    /**
+     * 获取全部用户信息
+     * @return
+     */
+    List<Admin> getAll();
 }

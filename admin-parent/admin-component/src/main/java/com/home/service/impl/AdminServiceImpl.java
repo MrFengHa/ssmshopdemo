@@ -1,10 +1,13 @@
 package com.home.service.impl;
 
 import com.home.entity.Admin;
+import com.home.entity.AdminExample;
 import com.home.mapper.AdminMapper;
 import com.home.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 文件描述
@@ -25,5 +28,15 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
         adminMapper.insert(admin);
+    }
+
+    /**
+     * 获取全部用户信息
+     *
+     * @return
+     */
+    @Override
+    public List<Admin> getAll() {
+        return adminMapper.selectByExample(new AdminExample());
     }
 }
