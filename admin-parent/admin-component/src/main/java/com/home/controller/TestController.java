@@ -5,6 +5,7 @@ import com.home.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,8 +30,17 @@ public class TestController {
         return "target";
     }
 
-    @RequestMapping("/send/array.html")
-    public String testReceiveArray(@RequestParam("array") List<Integer> array){
+    @RequestMapping("/send/array/one.html")
+    public String testReceiveArray(@RequestParam("array[]") List<Integer> array){
+        for (Integer i:
+                array) {
+            System.out.println( i);
+        }
+        return "target";
+    }
+
+    @RequestMapping("/send/array/two.html")
+    public String testReceiveArrayTwo(@RequestBody List<Integer> array){
         for (Integer i:
                 array) {
             System.out.println( i);
