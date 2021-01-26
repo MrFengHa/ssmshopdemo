@@ -1,6 +1,7 @@
 package com.home.config;
 
 import com.google.gson.Gson;
+import com.home.util.CrowdConstant;
 import com.home.util.CrowdUtil;
 import com.home.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -92,7 +93,7 @@ public class CrowExceptionResolver {
         //8.如果不是Ajax请求则创建ModelAndView对象
         ModelAndView modelAndView = new ModelAndView();
         //9.将Exception对象存入模型
-        modelAndView.addObject("exception", exception);
+        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION, exception);
         //10.设置对应的视图
         modelAndView.setViewName(viewName);
         //11.返回modelAndView对象
