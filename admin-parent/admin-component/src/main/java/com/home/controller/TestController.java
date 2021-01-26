@@ -24,7 +24,7 @@ public class TestController {
 
     @RequestMapping("/test/ssm.html")
     public String testSsm(ModelMap modelMap){
-
+        System.out.println(10/0);
         List<Admin> adminList= adminService.getAll();
         modelMap.addAttribute("adminList",adminList);
         return "target";
