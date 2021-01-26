@@ -29,6 +29,7 @@ public class TestController {
     @RequestMapping("/test/ssm.html")
     public String testSsm(ModelMap modelMap, HttpServletRequest request){
         boolean judgeRequest = CrowdUtil.judgeRequestType(request);
+
         log.info("judgeRequest====================="+judgeRequest);
         List<Admin> adminList= adminService.getAll();
         modelMap.addAttribute("adminList",adminList);
