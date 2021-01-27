@@ -1,12 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: RootFeng
-  Date: 2021/1/26
-  Time: 20:56
+  Date: 2021/1/27
+  Time: 21:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,14 +21,7 @@
     <link rel="stylesheet" href="css/login.css">
     <script src="jquery/jquery-2.1.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("button").click(function () {
-                //相当于浏览器的后退按钮
-                    window.history.back();
-            })
-        })
-    </script>
+
 
     <style>
 
@@ -44,12 +38,21 @@
 
 <div class="container">
 
+    <form action="admin/do/login.html" method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
+        <div class="form-group has-success has-feedback">
+            <input type="text" name="loginAcct" class="form-control" id="inputSuccess4" placeholder="请输入登录账号" autofocus>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-success has-feedback">
+            <input type="text" name="password" class="form-control" id="inputSuccess4" placeholder="请输入登录密码" style="margin-top:10px;">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="checkbox" style="text-align:right;"><a href="reg.html">我要注册</a></div>
 
-    <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in" style="text-align: center;"></i>尚筹网系统消息</h2>
-    <%--requestScope对应的是存放的request域数据的Map requestScope.exceoton相当于request.getAttribute("exception")
-    equestScope.exception.message相当于request.getAttribute("exception")。getMessage()--%>
-    <h3 style="text-align: center;">${requestScope.exception.message}</h3>
-    <button style="width: 150px;margin: 50px auto 0px auto" class="btn btn-lg btn-success btn-block">点我返回上一步</button>
+        <button type="submit" class="btn btn-lg btn-success btn-block">登录</button>
+    </form>
 </div>
+
 </body>
 </html>

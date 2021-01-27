@@ -5,6 +5,7 @@
     <title>helloWorld</title>
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
     <script type="text/javascript" src="jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#btn1").click(function () {
@@ -40,6 +41,10 @@
                     }
                 })
             })
+
+            $("#btn3").click(function (){
+               layer.msg("layer的弹框")
+            } )
         })
     </script>
 </head>
@@ -49,5 +54,6 @@
 <br>
 <button  id="btn1">Send [5, 8, 12]</button>
 <button  id="btn2">Send [5, 8, 12]</button>
+<button  id="btn3">layerTest</button>
 </body>
 </html>
