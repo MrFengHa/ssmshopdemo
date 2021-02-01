@@ -2,8 +2,6 @@ import com.home.entity.Admin;
 import com.home.mapper.AdminMapper;
 import com.home.service.AdminService;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

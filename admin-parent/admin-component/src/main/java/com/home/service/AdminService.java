@@ -22,4 +22,12 @@ public interface AdminService {
      * @return
      */
     List<Admin> getAll();
+
+    /**
+     * 获取用户登录信息
+     * @param loginAcct
+     * @param userPswd
+     * @return
+     */
+    Admin getAdminByLoginAcct(String loginAcct, String userPswd);
 }

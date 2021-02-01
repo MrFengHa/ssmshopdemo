@@ -1,6 +1,7 @@
 package com.home.config;
 
 import com.google.gson.Gson;
+import com.home.exception.LoginFailedException;
 import com.home.util.CrowdConstant;
 import com.home.util.CrowdUtil;
 import com.home.util.ResultEntity;
@@ -21,25 +22,7 @@ import java.io.IOException;
  */
 @ControllerAdvice
 public class CrowExceptionResolver {
-    /**
-     * 将一个具体的异常类型和一个方法关联起来
-     *
-     * @param exception
-     * @return
-     * @ExceptionHandler
-     */
-    @ExceptionHandler(value = NullPointerException.class)
-    public ModelAndView resolveNullPointerException(
-            //实际捕获到的异常类型
-            NullPointerException exception,
-            //当前请求对象
-            HttpServletRequest request,
-            //当前响应对象
-            HttpServletResponse response) throws IOException {
 
-
-        return commonResolve("system-error", exception, request, response);
-    }
 
     /**
      * 将一个具体的异常类型和一个方法关联起来
@@ -48,8 +31,8 @@ public class CrowExceptionResolver {
      * @return
      * @ExceptionHandler
      */
-    @ExceptionHandler(value = ArithmeticException.class)
-    public ModelAndView resolveArithmeticException(
+    @ExceptionHandler(value = LoginFailedException.class)
+    public ModelAndView resolveLoginFailedException(
             //实际捕获到的异常类型
             NullPointerException exception,
             //当前请求对象
@@ -57,8 +40,8 @@ public class CrowExceptionResolver {
             //当前响应对象
             HttpServletResponse response) throws IOException {
 
-
-        return commonResolve("system-error", exception, request, response);
+        String viewName = "admin-login";
+        return commonResolve(viewName, exception, request, response);
     }
 
     /**

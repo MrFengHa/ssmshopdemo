@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin {
     private Integer id;
 
-    private String userAcct;
+    private String loginAcct;
 
     private String userPswd;
 
@@ -28,12 +28,12 @@ public class Admin {
         this.id = id;
     }
 
-    public String getUserAcct() {
-        return userAcct;
+    public String getLoginAcct() {
+        return loginAcct;
     }
 
-    public void setUserAcct(String userAcct) {
-        this.userAcct = userAcct == null ? null : userAcct.trim();
+    public void setLoginAcct(String loginAcct) {
+        this.loginAcct = loginAcct == null ? null : loginAcct.trim();
     }
 
     public String getUserPswd() {

@@ -3,7 +3,7 @@
 <mapper namespace="com.home.mapper.AdminMapper">
   <resultMap id="BaseResultMap" type="com.home.entity.Admin">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_acct" jdbcType="VARCHAR" property="userAcct" />
+    <result column="login_acct" jdbcType="VARCHAR" property="loginAcct" />
     <result column="user_pswd" jdbcType="CHAR" property="userPswd" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_acct, user_pswd, user_name, email, create_time
+    id, login_acct, user_pswd, user_name, email, create_time
   </sql>
   <select id="selectByExample" parameterType="com.home.entity.AdminExample" resultMap="BaseResultMap">
     select
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.home.entity.Admin">
-    insert into t_admin (id, user_acct, user_pswd, 
+    insert into t_admin (id, login_acct, user_pswd, 
       user_name, email, create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{userAcct,jdbcType=VARCHAR}, #{userPswd,jdbcType=CHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{loginAcct,jdbcType=VARCHAR}, #{userPswd,jdbcType=CHAR}, 
       #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}
       )
   </insert>
@@ -114,8 +114,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userAcct != null">
-        user_acct,
+      <if test="loginAcct != null">
+        login_acct,
       </if>
       <if test="userPswd != null">
         user_pswd,
@@ -134,8 +134,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userAcct != null">
-        #{userAcct,jdbcType=VARCHAR},
+      <if test="loginAcct != null">
+        #{loginAcct,jdbcType=VARCHAR},
       </if>
       <if test="userPswd != null">
         #{userPswd,jdbcType=CHAR},
@@ -163,8 +163,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userAcct != null">
-        user_acct = #{record.userAcct,jdbcType=VARCHAR},
+      <if test="record.loginAcct != null">
+        login_acct = #{record.loginAcct,jdbcType=VARCHAR},
       </if>
       <if test="record.userPswd != null">
         user_pswd = #{record.userPswd,jdbcType=CHAR},
@@ -186,7 +186,7 @@
   <update id="updateByExample" parameterType="map">
     update t_admin
     set id = #{record.id,jdbcType=INTEGER},
-      user_acct = #{record.userAcct,jdbcType=VARCHAR},
+      login_acct = #{record.loginAcct,jdbcType=VARCHAR},
       user_pswd = #{record.userPswd,jdbcType=CHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.home.entity.Admin">
     update t_admin
     <set>
-      <if test="userAcct != null">
-        user_acct = #{userAcct,jdbcType=VARCHAR},
+      <if test="loginAcct != null">
+        login_acct = #{loginAcct,jdbcType=VARCHAR},
       </if>
       <if test="userPswd != null">
         user_pswd = #{userPswd,jdbcType=CHAR},
@@ -218,7 +218,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.home.entity.Admin">
     update t_admin
-    set user_acct = #{userAcct,jdbcType=VARCHAR},
+    set login_acct = #{loginAcct,jdbcType=VARCHAR},
       user_pswd = #{userPswd,jdbcType=CHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

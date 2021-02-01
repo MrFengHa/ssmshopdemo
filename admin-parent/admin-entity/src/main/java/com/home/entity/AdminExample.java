@@ -164,73 +164,73 @@ public class AdminExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctIsNull() {
-            addCriterion("user_acct is null");
+        public Criteria andLoginAcctIsNull() {
+            addCriterion("login_acct is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctIsNotNull() {
-            addCriterion("user_acct is not null");
+        public Criteria andLoginAcctIsNotNull() {
+            addCriterion("login_acct is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctEqualTo(String value) {
-            addCriterion("user_acct =", value, "userAcct");
+        public Criteria andLoginAcctEqualTo(String value) {
+            addCriterion("login_acct =", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctNotEqualTo(String value) {
-            addCriterion("user_acct <>", value, "userAcct");
+        public Criteria andLoginAcctNotEqualTo(String value) {
+            addCriterion("login_acct <>", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctGreaterThan(String value) {
-            addCriterion("user_acct >", value, "userAcct");
+        public Criteria andLoginAcctGreaterThan(String value) {
+            addCriterion("login_acct >", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctGreaterThanOrEqualTo(String value) {
-            addCriterion("user_acct >=", value, "userAcct");
+        public Criteria andLoginAcctGreaterThanOrEqualTo(String value) {
+            addCriterion("login_acct >=", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctLessThan(String value) {
-            addCriterion("user_acct <", value, "userAcct");
+        public Criteria andLoginAcctLessThan(String value) {
+            addCriterion("login_acct <", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctLessThanOrEqualTo(String value) {
-            addCriterion("user_acct <=", value, "userAcct");
+        public Criteria andLoginAcctLessThanOrEqualTo(String value) {
+            addCriterion("login_acct <=", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctLike(String value) {
-            addCriterion("user_acct like", value, "userAcct");
+        public Criteria andLoginAcctLike(String value) {
+            addCriterion("login_acct like", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctNotLike(String value) {
-            addCriterion("user_acct not like", value, "userAcct");
+        public Criteria andLoginAcctNotLike(String value) {
+            addCriterion("login_acct not like", value, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctIn(List<String> values) {
-            addCriterion("user_acct in", values, "userAcct");
+        public Criteria andLoginAcctIn(List<String> values) {
+            addCriterion("login_acct in", values, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctNotIn(List<String> values) {
-            addCriterion("user_acct not in", values, "userAcct");
+        public Criteria andLoginAcctNotIn(List<String> values) {
+            addCriterion("login_acct not in", values, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctBetween(String value1, String value2) {
-            addCriterion("user_acct between", value1, value2, "userAcct");
+        public Criteria andLoginAcctBetween(String value1, String value2) {
+            addCriterion("login_acct between", value1, value2, "loginAcct");
             return (Criteria) this;
         }
 
-        public Criteria andUserAcctNotBetween(String value1, String value2) {
-            addCriterion("user_acct not between", value1, value2, "userAcct");
+        public Criteria andLoginAcctNotBetween(String value1, String value2) {
+            addCriterion("login_acct not between", value1, value2, "loginAcct");
             return (Criteria) this;
         }
 

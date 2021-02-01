@@ -2,13 +2,9 @@ package com.home.mapper;
 
 import com.home.entity.Admin;
 import com.home.entity.AdminExample;
-
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-@Mapper
+
 public interface AdminMapper {
     long countByExample(AdminExample example);
 
