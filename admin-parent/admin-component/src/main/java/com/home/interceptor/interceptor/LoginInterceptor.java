@@ -22,7 +22,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         //2.尝试从Session域中获取Admin对象
         Admin admin = (Admin) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN);
-
         //3.判断admin是否为空
         if (admin == null) {
             //4.抛出异常
