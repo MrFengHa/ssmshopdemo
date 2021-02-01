@@ -1,5 +1,6 @@
 package com.home.service;
 
+import com.github.pagehelper.PageInfo;
 import com.home.entity.Admin;
 
 import java.util.List;
@@ -13,21 +14,33 @@ import java.util.List;
 public interface AdminService {
     /**
      * 保存用户
+     *
      * @param admin
      */
     void saveAdmin(Admin admin);
 
     /**
      * 获取全部用户信息
+     *
      * @return
      */
     List<Admin> getAll();
 
     /**
      * 获取用户登录信息
+     *
      * @param loginAcct
      * @param userPswd
      * @return
      */
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
+
+    /**
+     * 获取所有的用户
+     * @param keyword 查询条件
+     * @param pageNum 页码
+     * @param pageSize 每页的条数
+     * @return
+     */
+    PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize);
 }

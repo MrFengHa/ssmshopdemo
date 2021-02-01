@@ -67,9 +67,18 @@
       </foreach>
     </where>
   </sql>
+
   <sql id="Base_Column_List">
     id, login_acct, user_pswd, user_name, email, create_time
   </sql>
+  <select id="selectAdminByKeyword" resultMap="BaseResultMap">
+        select  id, login_acct, user_pswd, user_name, email, create_time
+        from t_admin
+        where login_acct like concat("%",#{keyword},"%") or
+              user_name like concat("%",#{keyword},"%") or
+          email like concat("%",#{keyword},"%")
+
+  </select>
   <select id="selectByExample" parameterType="com.home.entity.AdminExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -151,6 +160,7 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.home.entity.AdminExample" resultType="java.lang.Long">
     select count(*) from t_admin
     <if test="_parameter != null">
