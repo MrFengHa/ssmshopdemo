@@ -35,12 +35,13 @@ public class CrowdTest {
     private AdminService adminService;
 
     @Test
-    public void TestTx(){
+    public void TestTx() {
         Admin admin = new Admin(null, "jerry", "123456", "杰瑞", "110@qq.com", null);
         adminService.saveAdmin(admin);
     }
+
     @Test
-    public void testLog(){
+    public void testLog() {
         //1.想获取Logger对象
         Logger logger = LoggerFactory.getLogger(CrowdTest.class);
         //2.根据不同的日志级别打印日志
@@ -62,13 +63,21 @@ public class CrowdTest {
     }
 
     @Test
-    public void testInsertAdmin(){
-     Admin admin=   new Admin(null,"tom","123123","汤姆","tom@qq.com",null);
-      int count =   adminMapper.insert(admin);
-        System.out.println("受影响的行数=       "+count);
+    public void testInsertAdmin() {
+        Admin admin = new Admin(null, "tom", "123123", "汤姆", "tom@qq.com", null);
+        int count = adminMapper.insert(admin);
+        System.out.println("受影响的行数=       " + count);
     }
+
     @Test
     public void testConnection() throws SQLException {
         System.out.println(dataSource.getConnection());
+    }
+
+    @Test
+    public void test() {
+        for (int i = 0; i < 238; i++) {
+            adminMapper.insert(new Admin(null, "loginAcct" + i, "userPswd" + i, "userName" + i, "email" + i, null));
+        }
     }
 }
