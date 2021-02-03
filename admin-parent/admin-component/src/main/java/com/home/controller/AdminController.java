@@ -7,6 +7,7 @@ import com.home.util.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,7 +39,7 @@ public class AdminController {
 //调用Service方法获取PageInfo对象
         PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
         //将pageInfo存入模型
-        modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO,pageInfo);
+        modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
 
         return "admin-page";
     }
@@ -62,5 +63,19 @@ public class AdminController {
         //强制Session失效
         httpSession.invalidate();
         return "redirect:/admin/to/login/page.html";
+    }
+
+    @RequestMapping("admin/remove/{adminId}/{pageNum}/{keyword}.html")
+    public String remove(@PathVariable("adminId") Integer adminId,
+                         @PathVariable("pageNum") Integer pageNum,
+                         @PathVariable("keyword") String keyword) {
+        //执行删除
+        adminService.remove(adminId);
+        //页面的跳转：回到分页的页面
+        //1 返回admin-page 转发  无法显示分页数据
+        //2 转发的forward:/admin/get/page.html地址  一旦刷新页面会重复执行删除，浪费性能
+        //3 尝试方案3 重定向/admin/get/page.html地址
+        //同时为了保持原本所在的页面和查询关键词在附加pageNum和keyword两个请求参数
+        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
     }
 }

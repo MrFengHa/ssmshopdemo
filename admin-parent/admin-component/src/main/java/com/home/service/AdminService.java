@@ -43,4 +43,10 @@ public interface AdminService {
      * @return
      */
     PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据Id删除用户信息
+     * @param adminId
+     */
+    void remove(Integer adminId);
 }

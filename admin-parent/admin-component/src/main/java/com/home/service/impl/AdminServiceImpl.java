@@ -110,4 +110,14 @@ public class AdminServiceImpl implements AdminService {
         //3.封装到PageInfo对象中
         return new PageInfo<>(list);
     }
+
+    /**
+     * 根据Id删除用户信息
+     *
+     * @param adminId
+     */
+    @Override
+    public void remove(Integer adminId) {
+        adminMapper.deleteByPrimaryKey(adminId);
+    }
 }
