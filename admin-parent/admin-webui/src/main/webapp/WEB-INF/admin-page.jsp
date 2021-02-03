@@ -3,8 +3,59 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@include file="/WEB-INF/include-head.jsp" %>
-<link rel="stylesheet" href="css/pagination.css" />
+<link rel="stylesheet" href="css/pagination.css"/>
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        //调用后面声明的函数对页码导航条进行初始化操作
+        initPagination();
+    })
+
+    /**
+     * 生成页码导航条函数，对页码导航条进行初始化
+     */
+    function initPagination() {
+        //获取总记录数
+        var totalRecord = ${requestScope.pageInfo.total};
+        //声明一个JSOS对象存储Pagination要设置属性
+        var properties = {
+            //边缘页数
+            num_edge_entries: 3,
+            //主题页数
+            num_display_entries: 5,
+            //指定用户点击翻页的按钮时跳转页面的回调函数
+            callback: pageSelectCallback,
+            //每页要显示的数据数量
+            items_per_page:${requestScope.pageInfo.pageSize},
+            // Pagination内部使用pageIndex来管理页面
+            current_page: ${requestScope.pageInfo.pageNum-1},
+            //上一页按钮显示的文本
+            prev_text: "上一页",
+            //下一页按钮显示的文本
+            next_text: "下一页",
+
+        }
+        //生成页码导航条
+        $("#Pagination").pagination(totalRecord,properties)
+
+    }
+
+    /**
+     * 用户点击上一页，下一页123这样的页码时调用这个函数实现页面跳转
+     * @param pageIndex 是Pageination传给我们的那个从0开始的页码
+     * @param jQuery
+     */
+    function pageSelectCallback(pageIndex, jQuery) {
+        //根据pageIndex计算得到pageNum
+        var pageNum = pageIndex + 1;
+
+        //跳转页面
+        window.location.href = "admin/get/page.html?pageNum=" + pageNum;
+        //由于每一个页码都是超链接，所以我们在这个函数的最后取消超链接的默认行为
+        return false;
+    }
+</script>
 <body>
 <%@include file="/WEB-INF/include-nav.jsp" %>
 <div class="container-fluid">
@@ -16,7 +67,7 @@
                     <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="form-inline" role="form" style="float:left;">
+                    <form action="admin/get/page.html" class="form-inline" role="form" style="float:left;">
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
@@ -61,8 +112,8 @@
                                         <td><input type="checkbox"></td>
                                         <td>${admin.loginAcct}</td>
                                         <td>${admin.userName}</td>
+
                                         <td>${admin.email}</td>
-                                        <td>dolor</td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs"><i
                                                     class=" glyphicon glyphicon-check"></i></button>
