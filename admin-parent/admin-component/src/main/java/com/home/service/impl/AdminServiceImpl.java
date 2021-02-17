@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
         //1.密码加密
-        String userPswd =admin.getUserPswd();
+        String userPswd = admin.getUserPswd();
         userPswd = CrowdUtil.md5(userPswd);
         admin.setUserPswd(userPswd);
         //2.生成创建时间
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
             adminMapper.insert(admin);
         } catch (Exception e) {
             e.printStackTrace();
-            if (e instanceof DuplicateKeyException){
+            if (e instanceof DuplicateKeyException) {
                 throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
             }
         }
@@ -151,5 +151,24 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin getAdminById(Integer adminId) {
         return adminMapper.selectByPrimaryKey(adminId);
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param admin
+     */
+    @Override
+    public void update(Admin admin) {
+
+        //selective表示有选择的更新，对于null值得字段不更新
+        try {
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException) {
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 }

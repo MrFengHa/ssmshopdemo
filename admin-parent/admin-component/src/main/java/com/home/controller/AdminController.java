@@ -36,7 +36,7 @@ public class AdminController {
             ModelMap modelMap
 
     ) {
-//调用Service方法获取PageInfo对象
+        //调用Service方法获取PageInfo对象
         PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
         //将pageInfo存入模型
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
@@ -93,7 +93,13 @@ public class AdminController {
         //1根据adminId查询admin对象
         Admin admin = adminService.getAdminById(adminId);
         //2.将Admin对象传入模型
-        modelMap.addAttribute("admin",admin);
+        modelMap.addAttribute("admin", admin);
         return "admin-edit";
+    }
+
+    @RequestMapping("admin/update.html")
+    public String update(Admin admin, @RequestParam("pageNum") Integer pageNum, @RequestParam("keyword") String keyword) {
+        adminService.update(admin);
+        return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
     }
 }

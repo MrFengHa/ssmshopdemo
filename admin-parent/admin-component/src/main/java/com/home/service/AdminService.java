@@ -59,4 +59,10 @@ public interface AdminService {
      * @return
      */
     Admin getAdminById(Integer adminId);
+
+    /**
+     * 更新用户
+     * @param admin
+     */
+    void update(Admin admin);
 }
