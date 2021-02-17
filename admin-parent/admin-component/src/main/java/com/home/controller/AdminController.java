@@ -78,4 +78,10 @@ public class AdminController {
         //同时为了保持原本所在的页面和查询关键词在附加pageNum和keyword两个请求参数
         return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
     }
+
+    @RequestMapping("/admin/save.html")
+    public String save(Admin admin){
+        adminService.saveAdmin(admin);
+        return "redirect:/admin/get/page.html?pageNum="+Integer.MAX_VALUE;
+    }
 }

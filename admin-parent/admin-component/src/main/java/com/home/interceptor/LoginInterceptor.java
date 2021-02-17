@@ -1,4 +1,4 @@
-package com.home.interceptor.interceptor;
+package com.home.interceptor;
 
 import com.home.entity.Admin;
 import com.home.exception.AccessForbidException;

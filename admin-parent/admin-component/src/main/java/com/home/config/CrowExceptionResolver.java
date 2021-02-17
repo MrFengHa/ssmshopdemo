@@ -1,6 +1,7 @@
 package com.home.config;
 
 import com.google.gson.Gson;
+import com.home.exception.LoginAcctAlreadyInUseException;
 import com.home.exception.LoginFailedException;
 import com.home.util.CrowdConstant;
 import com.home.util.CrowdUtil;
@@ -22,6 +23,26 @@ import java.io.IOException;
  */
 @ControllerAdvice
 public class CrowExceptionResolver {
+
+    /**
+     * 将一个具体的异常类型和一个方法关联起来
+     *
+     * @param exception
+     * @return
+     * @ExceptionHandler
+     */
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(
+            //实际捕获到的异常类型
+            NullPointerException exception,
+            //当前请求对象
+            HttpServletRequest request,
+            //当前响应对象
+            HttpServletResponse response) throws IOException {
+
+        String viewName = "admin-add";
+        return commonResolve(viewName, exception, request, response);
+    }
 
 
     /**

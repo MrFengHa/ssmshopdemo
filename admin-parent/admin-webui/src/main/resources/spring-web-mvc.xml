@@ -32,6 +32,7 @@
     <!--配置view-controller，直接把请求地址和视图名称关联起来，就不用写controller方法了-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
 
     <!--注册拦截器-->
     <mvc:interceptors>
@@ -43,7 +44,7 @@
             <mvc:exclude-mapping path="/admin/do/login.html"/>
             <mvc:exclude-mapping path="/admin/do/logout.html"/>
             <!--配置拦截器类-->
-            <bean class="com.home.interceptor.interceptor.LoginInterceptor"/>
+            <bean class="com.home.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
 
 
