@@ -76,12 +76,24 @@ public class AdminController {
         //2 转发的forward:/admin/get/page.html地址  一旦刷新页面会重复执行删除，浪费性能
         //3 尝试方案3 重定向/admin/get/page.html地址
         //同时为了保持原本所在的页面和查询关键词在附加pageNum和keyword两个请求参数
-        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
+        return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
     }
 
     @RequestMapping("/admin/save.html")
-    public String save(Admin admin){
+    public String save(Admin admin) {
         adminService.saveAdmin(admin);
-        return "redirect:/admin/get/page.html?pageNum="+Integer.MAX_VALUE;
+        return "redirect:/admin/get/page.html?pageNum=" + Integer.MAX_VALUE;
+    }
+
+    @RequestMapping("admin/to/edit/page.html")
+    public String toEditPage(
+            @RequestParam("adminId") Integer adminId,
+            ModelMap modelMap
+    ) {
+        //1根据adminId查询admin对象
+        Admin admin = adminService.getAdminById(adminId);
+        //2.将Admin对象传入模型
+        modelMap.addAttribute("admin",admin);
+        return "admin-edit";
     }
 }

@@ -119,8 +119,8 @@
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs"><i
                                                     class=" glyphicon glyphicon-check"></i></button>
-                                            <button type="button" class="btn btn-primary btn-xs"><i
-                                                    class=" glyphicon glyphicon-pencil"></i></button>
+                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}" class="btn btn-primary btn-xs"><i
+                                                    class=" glyphicon glyphicon-pencil"></i></a>
                                             <a href="admin/remove/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}.html" class="btn btn-danger btn-xs">
                                                 <i class=" glyphicon glyphicon-remove"></i></a>
                                         </td>

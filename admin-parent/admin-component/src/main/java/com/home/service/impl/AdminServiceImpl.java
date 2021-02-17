@@ -141,4 +141,15 @@ public class AdminServiceImpl implements AdminService {
     public void remove(Integer adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
     }
+
+    /**
+     * 根据Id查询用户信息
+     *
+     * @param adminId
+     * @return
+     */
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
+    }
 }

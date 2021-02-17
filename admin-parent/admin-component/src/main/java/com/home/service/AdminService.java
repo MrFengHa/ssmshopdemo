@@ -37,8 +37,9 @@ public interface AdminService {
 
     /**
      * 获取所有的用户
-     * @param keyword 查询条件
-     * @param pageNum 页码
+     *
+     * @param keyword  查询条件
+     * @param pageNum  页码
      * @param pageSize 每页的条数
      * @return
      */
@@ -46,7 +47,16 @@ public interface AdminService {
 
     /**
      * 根据Id删除用户信息
+     *
      * @param adminId
      */
     void remove(Integer adminId);
+
+    /**
+     * 根据Id查询用户信息
+     *
+     * @param adminId
+     * @return
+     */
+    Admin getAdminById(Integer adminId);
 }
