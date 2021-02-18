@@ -1,5 +1,7 @@
 import com.home.entity.Admin;
+import com.home.entity.Role;
 import com.home.mapper.AdminMapper;
+import com.home.mapper.RoleMapper;
 import com.home.service.AdminService;
 import lombok.Data;
 import org.junit.Test;
@@ -33,6 +35,16 @@ public class CrowdTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Test
+    public void testRoleSave(){
+        for (int i = 0; i < 238; i++) {
+            roleMapper.insert(new Role(null,"role"+i));
+        }
+    }
 
     @Test
     public void TestTx() {

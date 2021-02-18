@@ -1,5 +1,6 @@
 package com.home.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 /**
@@ -9,6 +10,7 @@ import lombok.ToString;
  * @date 2021/1/24 14:03
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Role {
     private Integer id;
