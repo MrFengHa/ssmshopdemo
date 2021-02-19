@@ -57,6 +57,8 @@ function getPageInfoRemote() {
 function fillTableBody(pageInfo) {
     //清除tbody中旧的方法
     $("#rolePageBody").empty();
+    //清空是为了让没有搜索结果时不显示页码导航条
+    $("#Pagination").empty();
     //判断pageInfo是否有效
     if (pageInfo == null || pageInfo == undefined || pageInfo.list == null || pageInfo.list.length == 0) {
         $("#rolePageBody").append("<tr><td colspan='4'>抱歉没有查询到你搜索的数据！</td></tr>");
