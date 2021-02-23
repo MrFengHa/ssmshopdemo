@@ -40,4 +40,14 @@ public class RoleServiceImpl implements RoleService {
 
         return new PageInfo<>(roles);
     }
+
+    /**
+     * 保存角色
+     *
+     * @param role
+     */
+    @Override
+    public void saveRole(Role role) {
+        roleMapper.insert(role);
+    }
 }

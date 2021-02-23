@@ -31,4 +31,11 @@ public class RoleController {
         PageInfo<Role> pageInfo = roleService.getPageInfo(pageNum, pageSize, keyword);
         return ResultEntity.ok().data(pageInfo);
     }
+
+    @ResponseBody
+    @RequestMapping("role/save.json")
+    public ResultEntity<String> saveRole(Role role){
+        roleService.saveRole(role);
+        return ResultEntity.ok();
+    }
 }
