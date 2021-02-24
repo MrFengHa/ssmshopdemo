@@ -67,12 +67,14 @@ function fillTableBody(pageInfo) {
     //使用pageInfo的list属性填充tbody
     for (let i = 0; i < pageInfo.list.length; i++) {
         let role = pageInfo.list[i];
+        let roleId = role.id;
         let roleName = role.name;
         let numberTd = "<td>" + (i + 1) + "</td>";
         let checkboxTd = "<td><input type='checkbox'></td>"
         let roleNameTd = "<td>" + roleName + "</td>"
         let checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>";
-        let pencilBtn = "<button type='button' class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-pencil'></i></button>";
+        //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
+        let pencilBtn = "<button type='button' id='"+roleId+"' class='btn btn-primary btn-xs pencilBtn' ><i class='glyphicon glyphicon-pencil'></i></button>";
         let removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></button>";
         let buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>"
         let tr = "<tr>" + numberTd + checkboxTd + roleNameTd + buttonTd + "</tr>"

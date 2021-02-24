@@ -28,6 +28,7 @@
             $("#addModal").modal("show");
         })
 
+
         //给新增模态框中的保存按钮绑定单击响应函数
         $("#saveRoleBtn").click(function () {
             //①获取用户在文本框中输入的角色名称
@@ -57,13 +58,31 @@
                 }
             });
             //关闭模态框
-            $("addModal").modal("hide");
+            $("#addModal").modal("hide");
             //清理模态框
             $("#addModal [name=roleName]").val("");
             //重新加载分页
             window.pageNum = 99999;
             generatePage();
         })
+
+
+        //给页面上的铅笔绑定响应函数，目的打开模态框
+        //使用JQuery对象的on()函数可以解决上面的问题
+        //①首先找到所用动态生成的元素附着的静态元素
+        //on函数的参数第一个参数是事件类型
+        //on函数第二个参数是找到真正要绑定事件的元素选择器
+        //on函数第三个参数是事件响应函数
+        $("#rolePageBody").on("click", ".pencilBtn", function () {
+            $("#editModal").modal("show");
+            //获取表格中当前行中的角色名称
+            let roleName = $(this).parent().prev().text();
+
+            //获取当前角色的id
+            var roleId = this.id
+            //使用roleName的值设置文本框
+            $("editModal [name=roleName]").val(roleName);
+        });
     })
 </script>
 <body>
@@ -126,7 +145,28 @@
         </div>
     </div>
 </div>
+<div id="editModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">尚筹网系统弹窗</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin" role="form">
 
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" name="roleName" class="form-control" placeholder="请输入角色名称" autofocus>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="updateRoleBtn">更新</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -149,5 +189,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
 </body>
 </html>
