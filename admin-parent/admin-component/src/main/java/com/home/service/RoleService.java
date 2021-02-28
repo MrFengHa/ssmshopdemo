@@ -3,6 +3,8 @@ package com.home.service;
 import com.github.pagehelper.PageInfo;
 import com.home.entity.Role;
 
+import java.util.List;
+
 /**
  * 角色业务逻辑层接口
  *
@@ -33,4 +35,10 @@ public interface RoleService {
      * @param role
      */
     void updateRole(Role role);
+
+    /**
+     * 根据id删除角色
+     * @param roleIdList
+     */
+    void removeRole(List<Integer> roleIdList);
 }

@@ -6,9 +6,12 @@ import com.home.service.RoleService;
 import com.home.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 角色控制层接口
@@ -20,6 +23,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RoleController {
     @Autowired
     private RoleService roleService;
+
+    @ResponseBody
+    @RequestMapping("role/remove/by/role/id/array.json")
+    public ResultEntity<String> removeByRoleIdArray(@RequestBody List<Integer> roleIdList){
+        roleService.removeRole(roleIdList);
+        return ResultEntity.ok();
+    }
+
 
     @ResponseBody
     @RequestMapping("role/update.json")

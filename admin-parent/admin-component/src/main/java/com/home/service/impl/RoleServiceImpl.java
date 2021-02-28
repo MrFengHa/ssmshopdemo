@@ -1,8 +1,10 @@
 package com.home.service.impl;
 
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.home.entity.Role;
+import com.home.entity.RoleExample;
 import com.home.mapper.RoleMapper;
 import com.home.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +61,18 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void updateRole(Role role) {
         roleMapper.updateByPrimaryKey(role);
+    }
+
+    /**
+     * 根据id删除角色
+     *
+     * @param roleIdList
+     */
+    @Override
+    public void removeRole(List<Integer> roleIdList) {
+        RoleExample example = new RoleExample();
+        RoleExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(roleIdList);
+        roleMapper.deleteByExample(example);
     }
 }
