@@ -118,6 +118,53 @@
                 //③ 关闭模态框
                 $("#editModal").modal("hide");
             })
+
+        //点击确认模态框中的确认删除执行删除
+        $("#removeRoleBtn").click(function () {
+            //从全局变量范围获取roleIDArray，转换JSON字符
+            let requestBody = JSON.stringify(window.roleIdArray);
+            $.ajax({
+                "url":"role/remove/by/role/id/array.json",
+                "type":"post",
+                "data":requestBody,
+                "contentType":"application/json;charset=UTF-8",
+                "dataType":"json",
+                "success": function (response) {
+                    let result = response.result;
+                    if (result = "SUCCESS") {
+                        layer.msg("操作成功")
+                        //从新加载分页数据
+                        generatePage();
+                    }
+                    if (result == "FILED") {
+                        layer.msg("操作失败" + response.message);
+                    }
+                },
+                "error": function (response) {
+                    layer.msg(response.status + "" + response.statusText)
+                }
+            })
+            //③ 关闭模态框
+            $("#confirmModal").modal("hide");
+
+        })
+
+        //给单条删除按钮绑定单机响应函数
+        $("#rolePageBody").on("click", ".removeBtn", function () {
+            //获取表格中当前行中的角色名称
+            console.log($(this).text())
+            // let roleName = $(this).parent().prev().text();
+            // console.log( $(this).parent().text())
+            // //创建role对象存入数组
+            // let roleArray=[{
+            //     roleId:this.id,
+            //     roleName:roleName
+            // }]
+
+            //调用专门的函数打开模态框
+            //showConfirmModal(roleArray)
+        });
+
     })
 </script>
 <body>
@@ -180,6 +227,25 @@
         </div>
     </div>
 </div>
+
+<div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">尚筹网系统弹窗</h4>
+            </div>
+            <div class="modal-body">
+                <h4>请确认是否要删除以下角色</h4>
+                <div id="roleNameDiv" style="text-align: center"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="removeRoleBtn">确认删除</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

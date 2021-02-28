@@ -1,3 +1,24 @@
+//声明专门的函数显示确认的模态框
+function showConfirmModal(roleArray) {
+    //打开模态框
+    $("#confirmModal").modal("show");
+    //清除模态框旧的数据
+    $("roleNameDiv").empty();
+    //在全局变量范围创建数组用来存放角色的Id
+    window.roleIdArray=[];
+    //遍历roleArray数组
+    for (let i = 0;i<roleArray.length;i++){
+        let role=roleArray[i];
+        let roleName = role.roleName;
+        $("#roleNameDiv").append(roleName+"<br/>");
+
+        let roleId = role.roleId;
+
+        //调用数组对象的push
+        window.roleIdArray.push(roleId);
+    }
+}
+
 //生成分页，生成页面效果，调用这个函数都会重新加载页面
 function generatePage() {
     //1.获取分页数
@@ -75,7 +96,8 @@ function fillTableBody(pageInfo) {
         let checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>";
         //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
         let pencilBtn = "<button type='button' id='"+roleId+"' class='btn btn-primary btn-xs pencilBtn' ><i class='glyphicon glyphicon-pencil'></i></button>";
-        let removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></button>";
+        //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
+        let removeBtn = "<button type='button' id='"+roleId+"'  class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove removeBtn'></i></button>";
         let buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>"
         let tr = "<tr>" + numberTd + checkboxTd + roleNameTd + buttonTd + "</tr>"
 
