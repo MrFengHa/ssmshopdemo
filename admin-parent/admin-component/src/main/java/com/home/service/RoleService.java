@@ -12,6 +12,7 @@ import com.home.entity.Role;
 public interface RoleService {
     /**
      * 查询分页根据查询条件
+     *
      * @param pageNum
      * @param pageSize
      * @param keyword
@@ -21,7 +22,15 @@ public interface RoleService {
 
     /**
      * 保存角色
+     *
      * @param role
      */
     void saveRole(Role role);
+
+    /**
+     * 更新角色
+     *
+     * @param role
+     */
+    void updateRole(Role role);
 }

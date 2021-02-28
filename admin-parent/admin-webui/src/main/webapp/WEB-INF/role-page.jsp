@@ -48,6 +48,7 @@
                     let result = response.result;
                     if (result = "SUCCESS") {
                         layer.msg("操作成功")
+                        generatePage();
                     }
                     if (result == "FILED") {
                         layer.msg("操作失败" + response.message);
@@ -79,10 +80,44 @@
             let roleName = $(this).parent().prev().text();
 
             //获取当前角色的id
-            var roleId = this.id
+            //为了让执行更新的按钮能获取到RoleId的值，把它放到全局变量上
+            window.roleId = this.id
             //使用roleName的值设置文本框
-            $("editModal [name=roleName]").val(roleName);
+            $("#editModal [name=roleName]").val(roleName);
         });
+
+        //给更新模态框中的更新按钮绑定单击响应函数
+        $("#updateRoleBtn").click(
+            function () {
+                //①从文本框中获取新的角色名称
+                let roleName = $("#editModal [name=roleName]").val();
+                //er发送Ajax请求，执行更新
+                $.ajax({
+                    "url": "role/update.json",
+                    "type": "post",
+                    "data": {
+                        "id": window.roleId,
+                        "name": roleName
+                    },
+                    "dataType": "json",
+                    "success": function (response) {
+                        let result = response.result;
+                        if (result = "SUCCESS") {
+                            layer.msg("操作成功")
+                            //从新加载分页数据
+                            generatePage();
+                        }
+                        if (result == "FILED") {
+                            layer.msg("操作失败" + response.message);
+                        }
+                    },
+                    "error": function (response) {
+                        layer.msg(response.status + "" + response.statusText)
+                    }
+                })
+                //③ 关闭模态框
+                $("#editModal").modal("hide");
+            })
     })
 </script>
 <body>

@@ -21,6 +21,13 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @ResponseBody
+    @RequestMapping("role/update.json")
+    public ResultEntity<String> updateRole(Role role) {
+        roleService.updateRole(role);
+        return ResultEntity.ok();
+    }
+
     @RequestMapping("/role/get/page/info.json")
     @ResponseBody
     public ResultEntity<PageInfo<Role>> getPageInfo(
@@ -34,7 +41,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("role/save.json")
-    public ResultEntity<String> saveRole(Role role){
+    public ResultEntity<String> saveRole(Role role) {
         roleService.saveRole(role);
         return ResultEntity.ok();
     }
