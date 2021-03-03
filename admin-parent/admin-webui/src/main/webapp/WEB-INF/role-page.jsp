@@ -124,11 +124,11 @@
             //从全局变量范围获取roleIDArray，转换JSON字符
             let requestBody = JSON.stringify(window.roleIdArray);
             $.ajax({
-                "url":"role/remove/by/role/id/array.json",
-                "type":"post",
-                "data":requestBody,
-                "contentType":"application/json;charset=UTF-8",
-                "dataType":"json",
+                "url": "role/remove/by/role/id/array.json",
+                "type": "post",
+                "data": requestBody,
+                "contentType": "application/json;charset=UTF-8",
+                "dataType": "json",
                 "success": function (response) {
                     let result = response.result;
                     if (result = "SUCCESS") {
@@ -152,18 +152,57 @@
         //给单条删除按钮绑定单机响应函数
         $("#rolePageBody").on("click", ".removeBtn", function () {
             //获取表格中当前行中的角色名称
-            console.log($(this).text())
-            // let roleName = $(this).parent().prev().text();
-            // console.log( $(this).parent().text())
-            // //创建role对象存入数组
-            // let roleArray=[{
-            //     roleId:this.id,
-            //     roleName:roleName
-            // }]
-
+            let roleName = $(this).parent().prev().text();
+            //创建role对象存入数组
+            let roleArray = [{
+                roleId: this.id,
+                roleName: roleName
+            }]
+            console.log(roleArray)
             //调用专门的函数打开模态框
-            //showConfirmModal(roleArray)
+            showConfirmModal(roleArray)
         });
+
+        //给总的checkbox绑定单机响应函数
+        $("#summaryBox").click(function () {
+            //获取当前多选框自身状态
+            let currentStatus = this.checked;
+            //用当前多选框状态设置多选框
+            $(".itemBox").prop("checked", currentStatus);
+        })
+        //全选、全部选的反向操作
+        $("#rolePageBody").on("click", ".itemBox", function () {
+            //获取当前已经选中的.itemBox数量
+            let checkedBoxCount = $(".itemBox:checked").length;
+            //获取全部.itemBox的数量
+            let totalBoxCount = $(".itemBox").length;
+
+            //使用二者的比较结果设置checkedBox
+            $("#summaryBox").prop("checked", checkedBoxCount == totalBoxCount);
+
+        });
+
+        //给批量删除的按钮绑定单选函数
+        $("#batchRemoveBtn").click(function () {
+            //创建数组对象用来存放后面获取到的角色对象
+            let roleArray = []
+            //遍历当前选中的多选框
+            $(".itemBox:checked").each(function () {
+                //使用this引用当前遍历得到的多选框
+                let roleId = this.id;
+                //通过DOM操作获取角色的名称
+                let roleName = $(this).parent().next().text()
+                roleArray.push({"roleId": roleId, "roleName": roleName});
+            });
+            //检测roleArray的长度是否为0
+            if (roleArray.length == 0) {
+                layer.msg("请至少选择一个执行删除");
+                return;
+            }
+            //调用专门的函数打开专门的模态框
+            showConfirmModal(roleArray)
+        });
+
 
     })
 </script>
@@ -191,7 +230,8 @@
                                 class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger"
+                            style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
                     <button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;"><i
@@ -204,7 +244,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>名称</th>
                                 <th width="100">操作</th>
                             </tr>
