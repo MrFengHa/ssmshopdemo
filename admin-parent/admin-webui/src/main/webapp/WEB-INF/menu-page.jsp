@@ -2,8 +2,36 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@include file="/WEB-INF/include-head.jsp" %>
-<link rel="stylesheet" href="css/pagination.css"/>
-<script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<link rel="stylesheet" href="ztree/zTreeStyle.css">
+<script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        //1.准备生成树形结构的数据
+        $.ajax({
+            "url":"menu/get/whole/tree.json",
+            "type":"post",
+            "dataType":"json",
+            "success":function (response) {
+                let result = response.result;
+                if(result=="SUCCESS"){
+                    //2.创建JSON对象用于存储对ZTree所做的设置
+                    let setting = {};
+                    //3.从响应体中获取用来生成树形结构的JSON数据
+                    let zNodes = response.data;
+                    //4.初始化数据结构
+                    $.fn.zTree.init($("#treeDemo"),setting,zNodes);
+                }
+                if(result="FAILED"){
+                    layer.msg(response.message);
+                }
+            }
+        });
+
+
+    })
+</script>
+
 <body>
 <%@include file="/WEB-INF/include-nav.jsp" %>
 
