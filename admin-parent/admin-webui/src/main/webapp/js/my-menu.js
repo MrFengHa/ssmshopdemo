@@ -25,11 +25,40 @@ function myAddHoverDom(treeId, treeNode) {
     if ($("#"+btnGroupId).length>0){
         return;
     }
+
+    //准备各个按钮的HTML标签
+    let addBtn ="<a id='"+treeNode.id+"' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title='添加子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-plus rbg '></i></a>";
+    let removeBtn = "<a id='"+treeNode.id+"' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title='删除子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-times rbg '></i></a>";
+    let editBtn ="<a id='"+treeNode.id+"' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title='修改子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-edit rbg '></i></a>";
+
+    //获取当前节点的级别
+    let level = treeNode.level;
+
+    //声明变量存储拼装好的按钮代码
+    let btnHTML = "";
+    //判断当前节点的级别
+    if (level==0){
+        btnHTML =btnHTML+ addBtn;
+    }
+    if (level==1){
+        btnHTML = addBtn+" "+editBtn;
+        //获取当前的子节点
+        let length = treeNode.children.length;
+
+        if (length==0){
+            btnHTML = btnHTML+ " "+ removeBtn;
+        }
+    }
+    if(level==2){
+        btnHTML = editBtn+" "+removeBtn;
+    }
+
     //找到附着按钮组的超链接
     let anchorId = treeNode.tId + "_a";
-
+    console.log(btnHTML)
+    console.log(level)
     //执行在超链接后面附加span元素的操作
-    $("#" + anchorId).after("<span id='" + btnGroupId + "'>A</span>");
+    $("#" + anchorId).after("<span id='" + btnGroupId + "'>"+btnHTML+"</span>");
 }
 
 /**
@@ -43,4 +72,39 @@ function removeHoverDom(treeId, treeNode) {
     //移除对应的元素
 
     $("#" + btnGroupId).remove();
+}
+
+//生成树形结构的函数
+function  generateTree(){
+    //1.准备生成树形结构的数据
+    $.ajax({
+        "url": "menu/get/whole/tree.json",
+        "type": "post",
+        "dataType": "json",
+        "success": function (response) {
+            let result = response.result;
+            if (result == "SUCCESS") {
+                //2.创建JSON对象用于存储对ZTree所做的设置
+                let setting = {
+                    "view": {
+                        "addDiyDom": myAddDiyDom,
+                        "addHoverDom": myAddHoverDom,
+                        "removeHoverDom": removeHoverDom
+                    },
+                    "data": {
+                        "key": {
+                            "url": "maomi"
+                        }
+                    }
+                };
+                //3.从响应体中获取用来生成树形结构的JSON数据
+                let zNodes = response.data;
+                //4.初始化数据结构
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            }
+            if (result = "FAILED") {
+                layer.msg(response.message);
+            }
+        }
+    });
 }

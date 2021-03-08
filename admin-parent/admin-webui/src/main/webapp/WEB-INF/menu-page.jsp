@@ -7,40 +7,8 @@
 <script type="text/javascript" src="js/my-menu.js"></script>
 <script type="text/javascript">
     $(function () {
-
-        //1.准备生成树形结构的数据
-        $.ajax({
-            "url":"menu/get/whole/tree.json",
-            "type":"post",
-            "dataType":"json",
-            "success":function (response) {
-                let result = response.result;
-                if(result=="SUCCESS"){
-                    //2.创建JSON对象用于存储对ZTree所做的设置
-                    let setting = {
-                        "view" :{
-                            "addDiyDom":myAddDiyDom,
-                            "addHoverDom":myAddHoverDom,
-                            "removeHoverDom":removeHoverDom
-                        },
-                        "data":{
-                            "key":{
-                                "url":"maomi"
-                            }
-                        }
-                    };
-                    //3.从响应体中获取用来生成树形结构的JSON数据
-                    let zNodes = response.data;
-                    //4.初始化数据结构
-                    $.fn.zTree.init($("#treeDemo"),setting,zNodes);
-                }
-                if(result="FAILED"){
-                    layer.msg(response.message);
-                }
-            }
-        });
-
-
+        //调用专门封装好的函数初始化树形结构
+        generateTree();
     })
 </script>
 
