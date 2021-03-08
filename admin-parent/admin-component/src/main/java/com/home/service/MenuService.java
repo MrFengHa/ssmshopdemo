@@ -16,4 +16,10 @@ public interface MenuService {
      * @return
      */
     List<Menu> getAll();
+
+    /**
+     * 保存菜单信息
+     * @param menu
+     */
+    void saveMenu(Menu menu);
 }

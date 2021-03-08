@@ -9,6 +9,58 @@
     $(function () {
         //调用专门封装好的函数初始化树形结构
         generateTree();
+
+        //给添加子节点按钮绑定单击响应函数
+        $("#treeDemo").on("click", ".addBtn", function () {
+            //将当前节点的ID，作为新节点的pid保存到全局变量中
+            window.pid = this.id;
+            //打开模态框
+            $("#menuAddModal").modal("show");
+
+            return false;
+        });
+
+        //给添加子节点的模态框中的保存按钮绑定单机响应函数
+        $("#menuSaveBtn").click(function () {
+            //收集表单项中用户输入的数据
+            let name = $.trim($("#menuAddModal [name=name]").val());
+            let url = $.trim($("#menuAddModal [name=url]").val());
+            //单选按钮要定位到被选中的哪一个
+            let icon = $("#menuAddModal [name=icon]:checked").val();
+            //发送ajax请求
+            $.ajax({
+                "url":"menu/save.json",
+                "type":"post",
+                "data":{
+                    "pid":window.pid,
+                    "name":name,
+                    "url":url,
+                    "icon":icon
+                },
+                "dataType":"json",
+                "success":function (response) {
+                    let result = response.result;
+                    if (result=="SUCCESS"){
+                        layer.msg("操作成功");
+                        //从新加载树形结构
+                        generateTree();
+                    }
+
+                    if (result=="FAILED"){
+                        layer.msg("操作失败"+response.message);
+                    }
+                },
+                "error":function (response) {
+                    layer.msg(response.status+" "+response.statusText)
+                }
+            });
+            //关闭模态框
+            $("#menuAddModal").modal("hide");
+
+
+            //清空表单
+            $("#menuResetBtn").click();
+        });
     })
 </script>
 
@@ -35,5 +87,8 @@
     </div>
 </div>
 
+<%@ include file="/WEB-INF/modal-menu-add.jsp" %>
+<%@ include file="/WEB-INF/modal-menu-confirm.jsp" %>
+<%@ include file="/WEB-INF/modal-menu-edit.jsp" %>
 </body>
 </html>

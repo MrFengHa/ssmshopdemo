@@ -24,6 +24,15 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+
+
+    @ResponseBody
+    @RequestMapping("/menu/save.json")
+    public ResultEntity<String> saveMenu(Menu menu){
+        menuService.saveMenu(menu);
+        return ResultEntity.ok();
+    }
+
     @ResponseBody
     @RequestMapping("/menu/get/whole/tree.json")
     public ResultEntity<Menu> getWholeTreeNew() {

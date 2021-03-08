@@ -29,4 +29,14 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> getAll() {
         return menuMapper.selectByExample(new MenuExample());
     }
+
+    /**
+     * 保存菜单信息
+     *
+     * @param menu
+     */
+    @Override
+    public void saveMenu(Menu menu) {
+        menuMapper.insert(menu);
+    }
 }
