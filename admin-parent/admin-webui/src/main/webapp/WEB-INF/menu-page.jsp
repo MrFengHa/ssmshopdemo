@@ -4,6 +4,7 @@
 <%@include file="/WEB-INF/include-head.jsp" %>
 <link rel="stylesheet" href="ztree/zTreeStyle.css">
 <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="js/my-menu.js"></script>
 <script type="text/javascript">
     $(function () {
 
@@ -16,7 +17,18 @@
                 let result = response.result;
                 if(result=="SUCCESS"){
                     //2.创建JSON对象用于存储对ZTree所做的设置
-                    let setting = {};
+                    let setting = {
+                        "view" :{
+                            "addDiyDom":myAddDiyDom,
+                            "addHoverDom":myAddHoverDom,
+                            "removeHoverDom":removeHoverDom
+                        },
+                        "data":{
+                            "key":{
+                                "url":"maomi"
+                            }
+                        }
+                    };
                     //3.从响应体中获取用来生成树形结构的JSON数据
                     let zNodes = response.data;
                     //4.初始化数据结构
