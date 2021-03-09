@@ -50,4 +50,14 @@ public class MenuServiceImpl implements MenuService {
         //由于pid没有传入，一定要使用有选择的更新，为了保证“pid”不会置空
         menuMapper.updateByPrimaryKeySelective(menu);
     }
+
+    /**
+     * 根据ID删除菜单
+     *
+     * @param id
+     */
+    @Override
+    public void removeMenu(Integer id) {
+        menuMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -121,6 +121,55 @@
             //关闭模态框
             $("#menuEditModal").modal("hide");
         });
+
+        //给删除菜单按钮帮当单机响应函数
+        $("#treeDemo").on("click", ".deleteBtn", function () {
+            //将当前节点的ID保存到全局变量中
+            window.id = this.id;
+            //打开模态框
+            $("#menuConfirmModal").modal("show");
+
+            //获取zTreeObj对象
+            let zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+            //根据id属性查询节点对象
+            //用来搜索节点的属性名
+            let key = "id";
+            //用来搜索节点的属性值
+            let value = window.id;
+            let currentNode = zTreeObj.getNodeByParam(key, value);
+            $("#removeNodeSpan").html("【<i class='" + currentNode.icon + "'></i>" + currentNode.name + "】");
+            return false;
+        });
+
+        //给删除按钮绑定单击响应函数
+        $("#confirmBtn").click(function () {
+            $.ajax({
+                "url": "menu/remove.json",
+                "type": "post",
+                "data": {
+                    "id": window.id
+                },
+                "dataType": "json",
+                "success": function (response) {
+                    let result = response.result;
+                    if (result == "SUCCESS") {
+                        layer.msg("操作成功");
+                        //从新加载树形结构
+                        generateTree();
+                    }
+
+                    if (result == "FAILED") {
+                        layer.msg("操作失败" + response.message);
+                    }
+                },
+                "error": function (response) {
+                    layer.msg(response.status + " " + response.statusText)
+                }
+            });
+            //关闭模态框
+            $("#menuConfirmModal").modal("hide");
+        });
     })
 </script>
 

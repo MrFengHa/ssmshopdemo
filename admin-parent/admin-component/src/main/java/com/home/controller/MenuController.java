@@ -6,6 +6,7 @@ import com.home.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -24,6 +25,12 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @ResponseBody
+    @RequestMapping("menu/remove.json")
+    public ResultEntity<String> removeMenu(@RequestParam("id") Integer id){
+        menuService.removeMenu(id);
+        return ResultEntity.ok();
+    }
     @ResponseBody
     @RequestMapping("/menu/update.json")
     public ResultEntity<String> updateMenu(Menu menu){
