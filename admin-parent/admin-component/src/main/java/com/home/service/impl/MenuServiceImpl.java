@@ -39,4 +39,15 @@ public class MenuServiceImpl implements MenuService {
     public void saveMenu(Menu menu) {
         menuMapper.insert(menu);
     }
+
+    /**
+     * 更新菜心信息
+     *
+     * @param menu
+     */
+    @Override
+    public void updateMenu(Menu menu) {
+        //由于pid没有传入，一定要使用有选择的更新，为了保证“pid”不会置空
+        menuMapper.updateByPrimaryKeySelective(menu);
+    }
 }

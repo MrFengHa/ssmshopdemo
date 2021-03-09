@@ -24,6 +24,12 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @ResponseBody
+    @RequestMapping("/menu/update.json")
+    public ResultEntity<String> updateMenu(Menu menu){
+        menuService.updateMenu(menu);
+        return ResultEntity.ok();
+    }
 
 
     @ResponseBody

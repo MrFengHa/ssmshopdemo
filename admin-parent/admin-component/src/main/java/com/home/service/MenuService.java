@@ -22,4 +22,10 @@ public interface MenuService {
      * @param menu
      */
     void saveMenu(Menu menu);
+
+    /**
+     * 更新菜心信息
+     * @param menu
+     */
+    void updateMenu(Menu menu);
 }

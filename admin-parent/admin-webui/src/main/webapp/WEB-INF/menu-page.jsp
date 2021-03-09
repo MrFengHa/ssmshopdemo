@@ -29,37 +29,97 @@
             let icon = $("#menuAddModal [name=icon]:checked").val();
             //发送ajax请求
             $.ajax({
-                "url":"menu/save.json",
-                "type":"post",
-                "data":{
-                    "pid":window.pid,
-                    "name":name,
-                    "url":url,
-                    "icon":icon
+                "url": "menu/save.json",
+                "type": "post",
+                "data": {
+                    "pid": window.pid,
+                    "name": name,
+                    "url": url,
+                    "icon": icon
                 },
-                "dataType":"json",
-                "success":function (response) {
+                "dataType": "json",
+                "success": function (response) {
                     let result = response.result;
-                    if (result=="SUCCESS"){
+                    if (result == "SUCCESS") {
                         layer.msg("操作成功");
                         //从新加载树形结构
                         generateTree();
                     }
 
-                    if (result=="FAILED"){
-                        layer.msg("操作失败"+response.message);
+                    if (result == "FAILED") {
+                        layer.msg("操作失败" + response.message);
                     }
                 },
-                "error":function (response) {
-                    layer.msg(response.status+" "+response.statusText)
+                "error": function (response) {
+                    layer.msg(response.status + " " + response.statusText)
                 }
             });
             //关闭模态框
             $("#menuAddModal").modal("hide");
-
-
             //清空表单
             $("#menuResetBtn").click();
+        });
+
+        //给编辑按钮添加响应函数
+        $("#treeDemo").on("click", ".editBtn", function () {
+            //将当前节点的ID保存到全局变量中
+            window.id = this.id;
+            //打开模态框
+            $("#menuEditModal").modal("show");
+
+            //获取zTreeObj对象
+            let zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+            //根据id属性查询节点对象
+            //用来搜索节点的属性名
+            let key = "id";
+            //用来搜索节点的属性值
+            let value = window.id;
+            let currentNode = zTreeObj.getNodeByParam(key, value);
+            //回显表单数据
+            $("#menuEditModal [name=name]").val(currentNode.name);
+            $("#menuEditModal [name=url]").val(currentNode.url);
+            //radio回显的本质是把value和currentNode.icon一致的radio选中
+            $("#menuEditModal [name=icon]").val([currentNode.icon]);
+            return false;
+        });
+
+        //给更新模态框中的更新按钮绑定单击响应函数
+        $("#menuEditBtn").click(function () {
+            //收集表单数据
+            let name = $("#menuEditModal [name=name]").val();
+            let url = $("#menuEditModal [name=url]").val();
+            let icon = $("#menuEditModal [name=icon]:checked").val();
+            //发送Ajax请求
+            //发送ajax请求
+            $.ajax({
+                "url": "menu/update.json",
+                "type": "post",
+                "data": {
+                    "id": window.id,
+                    "name": name,
+                    "url": url,
+                    "icon": icon
+                },
+                "dataType": "json",
+                "success": function (response) {
+                    let result = response.result;
+                    if (result == "SUCCESS") {
+                        layer.msg("操作成功");
+                        //从新加载树形结构
+                        generateTree();
+                    }
+
+                    if (result == "FAILED") {
+                        layer.msg("操作失败" + response.message);
+                    }
+                },
+                "error": function (response) {
+                    layer.msg(response.status + " " + response.statusText)
+                }
+            });
+            //关闭模态框
+            $("#menuEditModal").modal("hide");
         });
     })
 </script>
