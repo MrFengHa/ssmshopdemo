@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@include file="/WEB-INF/include-head.jsp" %>
+<script>
+    $(function(){
+        $("#toRightBtn").click(function () {
+            alert("点击了")
+        })
+    })
+</script>
 <body>
 <%@include file="/WEB-INF/include-nav.jsp" %>
 <div class="container-fluid">
@@ -16,7 +23,10 @@
             </ol>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form role="form" class="form-inline">
+                    <form action="assign/do/role/assign.html" method="post" role="form" class="form-inline">
+                        <input type="hidden" name="adminId" value="${param.adminId}">
+                        <input type="hidden" name="pageNum" value="${param.pageNum}">
+                        <input type="hidden" name="keyword" value="${param.keyword}">
                         <div class="form-group">
                             <label for="exampleInputPassword1">未分配角色列表</label><br>
                             <select class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
@@ -28,21 +38,21 @@
                         </div>
                         <div class="form-group">
                             <ul>
-                                <li class="btn btn-default glyphicon glyphicon-chevron-right"></li>
+                                <li id="toRightBtn" class="btn btn-default glyphicon glyphicon-chevron-right"></li>
                                 <br>
-                                <li class="btn btn-default glyphicon glyphicon-chevron-left"
+                                <li id="toLeftBtn" class="btn btn-default glyphicon glyphicon-chevron-left"
                                     style="margin-top:20px;"></li>
                             </ul>
                         </div>
                         <div class="form-group" style="margin-left:40px;">
                             <label for="exampleInputPassword1">已分配角色列表</label><br>
-                            <select class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
+                            <select name="roleId" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
                                 <c:forEach items="${requestScope.assignedRoleList}" var="role">
                                     <option value="${role.id}">${role.name}</option>
                                 </c:forEach>
-
                             </select>
                         </div>
+                        <button  style="width: 150px;margin: 150px auto 0px auto" type="submit" class="btn btn-lg btn-success btn-block">保存</button>
                     </form>
                 </div>
             </div>
