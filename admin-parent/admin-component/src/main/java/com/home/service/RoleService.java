@@ -41,4 +41,18 @@ public interface RoleService {
      * @param roleIdList
      */
     void removeRole(List<Integer> roleIdList);
+
+    /**
+     * 查询已经分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> getAssignedRole(Integer adminId);
+
+    /**
+     * 查询没有被分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> getUnAssignedRole(Integer adminId);
 }

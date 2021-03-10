@@ -29,4 +29,18 @@ public interface RoleMapper {
     int updateByPrimaryKey(Role record);
 
     List<Role> selectRoleByKeyword(String keyword);
+
+    /**
+     * 查询被分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> selectAssignedRole(Integer adminId);
+
+    /**
+     * 查询没有被分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> selectUnAssignedRole(Integer adminId);
 }
