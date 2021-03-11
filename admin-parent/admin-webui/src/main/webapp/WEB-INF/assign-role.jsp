@@ -67,3 +67,4 @@
 </div>
 </body>
 </html>
+CREATE TABLE `t_auth` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(200) DEFAULT NULL, `title` varchar(200) DEFAULT NULL,`category_id` int(11) DEFAULT NULL, PRIMARY KEY (`id`) );
