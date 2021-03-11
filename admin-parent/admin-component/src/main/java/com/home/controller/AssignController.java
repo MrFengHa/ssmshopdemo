@@ -38,4 +38,16 @@ public class AssignController {
         return "assign-role";
     }
 
+    @RequestMapping("assign/do/role/assign.html")
+    public String saveAdminRoleRelationship(
+            @RequestParam("adminId") Integer adminId,
+            @RequestParam("pageNum") Integer pageNum,
+            @RequestParam("keyword") String keyword,
+            @RequestParam(value = "roleIdList",required = false) List<Integer> roleIdList
+    ){
+        adminService.saveAdminRoleRelationship(adminId,roleIdList);
+        return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
+    }
+
+
 }

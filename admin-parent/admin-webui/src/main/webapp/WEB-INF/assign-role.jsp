@@ -6,7 +6,13 @@
 <script>
     $(function(){
         $("#toRightBtn").click(function () {
-            alert("点击了")
+           $("select:eq(0)>option:selected").appendTo("select:eq(1)")
+        })
+        $("#toLeftBtn").click(function () {
+            $("select:eq(1)>option:selected").appendTo("select:eq(0)")
+        })
+        $("#submitBtn").click(function () {
+            $("select:eq(1)>option").prop("selected","selected")
         })
     })
 </script>
@@ -46,13 +52,13 @@
                         </div>
                         <div class="form-group" style="margin-left:40px;">
                             <label for="exampleInputPassword1">已分配角色列表</label><br>
-                            <select name="roleId" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
+                            <select name="roleIdList" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
                                 <c:forEach items="${requestScope.assignedRoleList}" var="role">
                                     <option value="${role.id}">${role.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
-                        <button  style="width: 150px;margin: 150px auto 0px auto" type="submit" class="btn btn-lg btn-success btn-block">保存</button>
+                        <button id="submitBtn" style="width: 150px;margin: 150px auto 0px auto" type="submit" class="btn btn-lg btn-success btn-block">保存</button>
                     </form>
                 </div>
             </div>

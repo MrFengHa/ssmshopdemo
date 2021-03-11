@@ -94,7 +94,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_admin
     where id = #{id,jdbcType=INTEGER}
@@ -109,11 +109,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.home.entity.Admin">
-    insert into t_admin (id, login_acct, user_pswd, 
+    <delete id="deleteRelationship" parameterType="integer">
+        delete from inner_admin_role where admin_id=#{adminId}
+    </delete>
+    <insert id="insert" parameterType="com.home.entity.Admin">
+    insert into t_admin (id, login_acct, user_pswd,
       user_name, email, create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{loginAcct,jdbcType=VARCHAR}, #{userPswd,jdbcType=CHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{loginAcct,jdbcType=VARCHAR}, #{userPswd,jdbcType=CHAR},
       #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}
       )
   </insert>
@@ -160,8 +163,14 @@
       </if>
     </trim>
   </insert>
+    <insert id="insertNewRelationship">
+        insert into inner_admin_role(admin_id, role_id) values
+        <foreach collection="roleIdList" item="roleId" separator=",">
+            (#{adminId},#{roleId})
+        </foreach>
+    </insert>
 
-  <select id="countByExample" parameterType="com.home.entity.AdminExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.home.entity.AdminExample" resultType="java.lang.Long">
     select count(*) from t_admin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

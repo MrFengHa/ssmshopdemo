@@ -29,4 +29,17 @@ public interface AdminMapper {
     int updateByPrimaryKey(Admin record);
 
     List<Admin> selectAdminByKeyword(String keyword);
+
+    /**
+     * 根据用户Id删除角色信息
+     * @param adminId
+     */
+    void deleteRelationship(Integer adminId);
+
+    /**
+     * 根据用户ID添加角色
+     * @param adminId
+     * @param roleIdList
+     */
+    void insertNewRelationship(@Param("adminId") Integer adminId,@Param("roleIdList") List<Integer> roleIdList);
 }
