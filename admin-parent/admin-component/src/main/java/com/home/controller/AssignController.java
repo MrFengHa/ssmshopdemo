@@ -2,6 +2,7 @@ package com.home.controller;
 
 import com.home.entity.Role;
 import com.home.service.AdminService;
+import com.home.service.AuthService;
 import com.home.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class AssignController {
     private AdminService adminService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private AuthService authService;
 
     @RequestMapping("assign/to/assign/role/page.html")
     public String toAssignRolePage(@RequestParam("adminId") Integer adminId, ModelMap modelMap) {
@@ -48,6 +51,9 @@ public class AssignController {
         adminService.saveAdminRoleRelationship(adminId,roleIdList);
         return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
     }
+
+
+
 
 
 }

@@ -94,7 +94,7 @@ function fillTableBody(pageInfo) {
         let numberTd = "<td>" + (i + 1) + "</td>";
         let checkboxTd = "<td><input id='"+roleId+"'  class='itemBox' type='checkbox'></td>"
         let roleNameTd = "<td>" + roleName + "</td>"
-        let checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>";
+        let checkBtn = "<button type='button' id='"+roleId+"' class='btn btn-success btn-xs checkBtn'><i class='glyphicon glyphicon-check'></i></button>";
         //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
         let pencilBtn = "<button type='button' id='"+roleId+"' class='btn btn-primary btn-xs pencilBtn' ><i class='glyphicon glyphicon-pencil'></i></button>";
         //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id

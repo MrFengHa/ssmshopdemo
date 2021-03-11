@@ -203,7 +203,12 @@
             showConfirmModal(roleArray)
         });
 
+        //给分配权限按钮绑定单机响应函数
+        $("#rolePageBody").on("click", ".checkBtn", function () {
 
+            //调用专门的函数打开模态框
+            $("#assignModal").modal("show");
+        });
     })
 </script>
 <body>
@@ -268,6 +273,7 @@
     </div>
 </div>
 
+<%@ include file="/WEB-INF/modal-role-assign-auth.jsp" %>
 <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
