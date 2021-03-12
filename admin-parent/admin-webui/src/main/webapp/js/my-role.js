@@ -1,3 +1,50 @@
+//声明专门的函数用来在分配Auth的模态框中显示Auth的树形结构数据
+function fillAuthTree() {
+    //1.发送ajax请求发送Auth数据
+    let ajaxReturn = $.ajax({
+        "url": "assgin/get/all/auth.json",
+        "type": "post",
+        "dataType": "json",
+        "async": false
+    });
+    if (ajaxReturn.status!=200){
+        layer.msg("请求处理出错！响应状态码是："+ajaxReturn.status+"说明是："+ajaxReturn.statusText);
+        return
+    }
+
+    //从服务器端查询到的list不需要组装成树形结构，这里我们交给zTree去组装
+    let  authList = ajaxReturn.responseJSON.data;
+
+    //3.准备对zTree进行设置的JSON对象
+    let setting = {
+        data: {
+            simpleData: {
+                //开启简单JSON的功能
+                enable: true,
+                pIdKey: "categoryId"
+            },
+            key:{
+                //使用title树形显示节点名称，不用默认的
+                name:"title",
+
+            },
+        },
+        check: {
+            enable: true
+        }
+    };
+
+    //4.生成树形结构
+    $.fn.zTree.init($("#authTreeDemo"), setting, authList);
+    //获取zTreeObj对象
+    let zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+    //调用zTree对象的方法，把节点展开
+    zTreeObj.expandAll(true);
+    //5.查询已经分配的Auth的id组成的List
+
+    //6.根据authIdArray把树形结构中对用的节点勾选上
+}
+
 //声明专门的函数显示确认的模态框
 function showConfirmModal(roleArray) {
     //打开模态框
@@ -5,13 +52,13 @@ function showConfirmModal(roleArray) {
     //清除模态框旧的数据
     $("#roleNameDiv").empty();
     //在全局变量范围创建数组用来存放角色的Id
-    window.roleIdArray=[];
+    window.roleIdArray = [];
     //遍历roleArray数组
-    for (let i = 0;i<roleArray.length;i++){
-        let role=roleArray[i];
+    for (let i = 0; i < roleArray.length; i++) {
+        let role = roleArray[i];
         let roleName = role.roleName;
 
-        $("#roleNameDiv").append(roleName+"<br/>");
+        $("#roleNameDiv").append(roleName + "<br/>");
 
         let roleId = role.roleId;
 
@@ -92,13 +139,13 @@ function fillTableBody(pageInfo) {
         let roleId = role.id;
         let roleName = role.name;
         let numberTd = "<td>" + (i + 1) + "</td>";
-        let checkboxTd = "<td><input id='"+roleId+"'  class='itemBox' type='checkbox'></td>"
+        let checkboxTd = "<td><input id='" + roleId + "'  class='itemBox' type='checkbox'></td>"
         let roleNameTd = "<td>" + roleName + "</td>"
-        let checkBtn = "<button type='button' id='"+roleId+"' class='btn btn-success btn-xs checkBtn'><i class='glyphicon glyphicon-check'></i></button>";
+        let checkBtn = "<button type='button' id='" + roleId + "' class='btn btn-success btn-xs checkBtn'><i class='glyphicon glyphicon-check'></i></button>";
         //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
-        let pencilBtn = "<button type='button' id='"+roleId+"' class='btn btn-primary btn-xs pencilBtn' ><i class='glyphicon glyphicon-pencil'></i></button>";
+        let pencilBtn = "<button type='button' id='" + roleId + "' class='btn btn-primary btn-xs pencilBtn' ><i class='glyphicon glyphicon-pencil'></i></button>";
         //通过button的id属性把roleId值传递到button按钮的单击响应函数，再单击响应函数中使用this.id
-        let removeBtn = "<button type='button' id='"+roleId+"'  class='btn btn-danger btn-xs removeBtn'><i class='glyphicon glyphicon-remove '></i></button>";
+        let removeBtn = "<button type='button' id='" + roleId + "'  class='btn btn-danger btn-xs removeBtn'><i class='glyphicon glyphicon-remove '></i></button>";
         let buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>"
         let tr = "<tr>" + numberTd + checkboxTd + roleNameTd + buttonTd + "</tr>"
 

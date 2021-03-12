@@ -9,7 +9,12 @@
 				</button>
 				<h4 class="modal-title">尚筹网系统弹窗</h4>
 			</div>
-
+            <div class="modal-body">
+                <ul id="authTreeDemo" class="ztree"></ul>
+            </div>
+            <div class="modal-footer">
+                <button id="assignBtn" type="button" class="btn btn-primary">好的，我设置好了！执行操作</button>
+            </div>
 		</div>
 	</div>
 </div>

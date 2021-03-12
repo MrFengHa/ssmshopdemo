@@ -27,4 +27,11 @@ public interface AuthMapper {
     int updateByPrimaryKeySelective(Auth record);
 
     int updateByPrimaryKey(Auth record);
+
+    /**
+     * 查询角色被赋予的权限
+     * @param roleId
+     * @return
+     */
+    List<Integer> selectAssignedAuthIdByRoleId(Integer roleId);
 }

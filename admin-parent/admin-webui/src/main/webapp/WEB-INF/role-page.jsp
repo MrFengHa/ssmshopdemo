@@ -4,6 +4,8 @@
 <%@include file="/WEB-INF/include-head.jsp" %>
 <link rel="stylesheet" href="css/pagination.css"/>
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<link rel="stylesheet" href="ztree/zTreeStyle.css">
+<script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="js/my-role.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -208,6 +210,9 @@
 
             //调用专门的函数打开模态框
             $("#assignModal").modal("show");
+            //在模态框中加载Auth树形结构的数据
+            fillAuthTree();
+
         });
     })
 </script>

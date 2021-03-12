@@ -83,7 +83,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_auth
     where id = #{id,jdbcType=INTEGER}
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.home.entity.Auth">
-    insert into t_auth (id, name, title, 
+    insert into t_auth (id, name, title,
       category_id)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
       #{categoryId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.home.entity.Auth">
@@ -141,7 +141,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectAssignedAuthIdByRoleId" resultType="java.lang.Integer">
+        select auth_id from inner_role_auth where role_id=#{roleId}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update t_auth
     <set>
       <if test="record.id != null">
