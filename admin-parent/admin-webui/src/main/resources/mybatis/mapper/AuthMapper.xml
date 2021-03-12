@@ -98,7 +98,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.home.entity.Auth">
+    <delete id="deleteOldRelationship">
+        delete from inner_role_auth where role_id=#{roleId}
+    </delete>
+    <insert id="insert" parameterType="com.home.entity.Auth">
     insert into t_auth (id, name, title,
       category_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
@@ -135,7 +138,13 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.home.entity.AuthExample" resultType="java.lang.Long">
+    <insert id="insertNewRelationship">
+        insert into inner_role_auth (role_id, auth_id) VALUES
+        <foreach collection="authIdList" item="authId" separator=",">
+            (#{roleId},#{authId})
+        </foreach>
+    </insert>
+    <select id="countByExample" parameterType="com.home.entity.AuthExample" resultType="java.lang.Long">
     select count(*) from t_auth
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

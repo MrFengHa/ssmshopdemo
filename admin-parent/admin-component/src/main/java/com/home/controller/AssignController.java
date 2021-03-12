@@ -9,11 +9,13 @@ import com.home.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文件描述
@@ -35,6 +37,13 @@ public class AssignController {
     public ResultEntity<List<Integer>> getAssignedAuthIdByRoleId(@RequestParam("roleId") Integer roleId) {
         List<Integer> authIdList = authService.getAssignedAuthIdByRoleId(roleId);
         return ResultEntity.ok().data(authIdList);
+    }
+
+    @ResponseBody
+    @RequestMapping("assign/do/role/assign/auth.json")
+    public ResultEntity<String> saveRoleAuthRelationship(@RequestBody Map<String,List<Integer>> map) {
+        authService.saveRoleAuthRelationship(map);
+        return ResultEntity.ok();
     }
 
     @ResponseBody

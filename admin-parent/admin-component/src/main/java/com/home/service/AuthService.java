@@ -3,6 +3,7 @@ package com.home.service;
 import com.home.entity.Auth;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 权限业务逻辑层接口
@@ -23,4 +24,10 @@ public interface AuthService {
      * @return
      */
     List<Integer> getAssignedAuthIdByRoleId(Integer roleId);
+
+    /**
+     * 为角色分配权限
+     * @param map
+     */
+    void saveRoleAuthRelationship(Map<String, List<Integer>> map);
 }

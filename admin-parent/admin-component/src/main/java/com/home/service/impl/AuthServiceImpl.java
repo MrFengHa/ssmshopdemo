@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文件描述
@@ -39,5 +40,26 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public List<Integer> getAssignedAuthIdByRoleId(Integer roleId) {
         return authMapper.selectAssignedAuthIdByRoleId(roleId);
+    }
+
+    /**
+     * 为角色分配权限
+     *
+     * @param map
+     */
+    @Override
+    public void saveRoleAuthRelationship(Map<String, List<Integer>> map) {
+        //1.先获取roleId
+        List<Integer> roleIdList = map.get("roleId");
+        Integer roleId = roleIdList.get(0);
+        //2.删除就关联关系数据
+        authMapper.deleteOldRelationship(roleId);
+        //3.获取AuthIdList
+        List<Integer> authIdList = map.get("authIdArray");
+
+        //4.判断authIdList是否是有效的
+        if (authIdList!=null&&authIdList.size()>0){
+            authMapper.insertNewRelationship(roleId,authIdList);
+        }
     }
 }

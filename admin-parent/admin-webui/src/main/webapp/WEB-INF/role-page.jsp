@@ -215,6 +215,52 @@
             fillAuthTree();
 
         });
+
+        //给分配权限模态框中的“分配”按钮绑定点击相应函数
+        $("#assignBtn").click(function () {
+            //①收集树形结构的各个节点中被勾选的节点
+            //声明一个专门存放AuthId的数组
+            let authIdArray = [];
+            //获取zTreeObj对象
+            let zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+            //获取全部被勾选的节点
+            let checkedNodes = zTreeObj.getCheckedNodes();
+            //遍历checkedNodes
+            for (let i = 0; i <checkedNodes.length ; i++) {
+                let checkedNode = checkedNodes[i];
+                let authId = checkedNode.id;
+
+                authIdArray.push(authId);
+            }
+            //②发送请求执行分配
+            let requestBody = {
+                "authIdArray":authIdArray,
+                //为了服务器端Controller方法能够统一使用List<Integer>方式接收数据，roleId也存入数组
+                "roleId":[window.roleId]
+            }
+            requestBody  = JSON.stringify(requestBody);
+            $.ajax({
+                url:"assign/do/role/assign/auth.json",
+                type:"post",
+                data:requestBody,
+                contentType: "application/json;charset=UTF-8",
+                dataType:"json",
+                success:function (response) {
+                    let result = response.result;
+                    if (result=="SUCCESS"){
+                        layer.msg("操作成功");
+                    }
+                    if (result=="FAILED"){
+                        layer.msg("操作失败！"+response.message)
+                    }
+                },
+                error:function (response) {
+                    layer.msg(response.status+" "+response.statusText)
+                }
+            });
+            //关闭模态框
+            $("#assignModal").modal("hide");
+        })
     })
 </script>
 <body>
