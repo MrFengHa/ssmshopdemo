@@ -7,13 +7,13 @@ function fillAuthTree() {
         "dataType": "json",
         "async": false
     });
-    if (ajaxReturn.status!=200){
-        layer.msg("请求处理出错！响应状态码是："+ajaxReturn.status+"说明是："+ajaxReturn.statusText);
+    if (ajaxReturn.status != 200) {
+        layer.msg("请求处理出错！响应状态码是：" + ajaxReturn.status + "说明是：" + ajaxReturn.statusText);
         return
     }
 
     //从服务器端查询到的list不需要组装成树形结构，这里我们交给zTree去组装
-    let  authList = ajaxReturn.responseJSON.data;
+    let authList = ajaxReturn.responseJSON.data;
 
     //3.准备对zTree进行设置的JSON对象
     let setting = {
@@ -23,9 +23,9 @@ function fillAuthTree() {
                 enable: true,
                 pIdKey: "categoryId"
             },
-            key:{
+            key: {
                 //使用title树形显示节点名称，不用默认的
-                name:"title",
+                name: "title",
 
             },
         },
@@ -41,8 +41,36 @@ function fillAuthTree() {
     //调用zTree对象的方法，把节点展开
     zTreeObj.expandAll(true);
     //5.查询已经分配的Auth的id组成的List
+    ajaxReturn = $.ajax({
+        "url": "assgin/get/assigned/by/role/auth/id.json",
+        "type": "post",
+        data: {
+            "roleId": window.roleId
+        },
+        "dataType": "json",
+        "async": false
+    });
 
+    if (ajaxReturn.status != 200) {
+        layer.msg("请求处理出错！响应状态码是：" + ajaxReturn.status + "说明是：" + ajaxReturn.statusText);
+        return
+    }
+    //从响应中获取authIdList
+    let authIdList = ajaxReturn.responseJSON.data;
     //6.根据authIdArray把树形结构中对用的节点勾选上
+
+    //①遍历authIdList
+    for (let i = 0; i <authIdList.length ; i++) {
+        let authId = authIdList[i];
+        //②根据Id查询树形结构中对应的节点
+        let treeNode = zTreeObj.getNodeByParam("id",authId);
+        //设置为表示节点被勾选
+        let checked = true;
+        //表示不和上级联动
+        let checkTypeFlag = false;
+        //③将treeNode设置为被勾选
+        zTreeObj.checkNode(treeNode,checked,checkTypeFlag);
+    }
 }
 
 //声明专门的函数显示确认的模态框

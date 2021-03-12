@@ -207,7 +207,8 @@
 
         //给分配权限按钮绑定单机响应函数
         $("#rolePageBody").on("click", ".checkBtn", function () {
-
+            //把当前角色id存入全局变量
+            window.roleId = this.id;
             //调用专门的函数打开模态框
             $("#assignModal").modal("show");
             //在模态框中加载Auth树形结构的数据
