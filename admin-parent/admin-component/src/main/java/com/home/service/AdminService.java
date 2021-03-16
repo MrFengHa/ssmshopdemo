@@ -72,4 +72,11 @@ public interface AdminService {
      * @param roleIdList
      */
     void saveAdminRoleRelationship(Integer adminId, List<Integer> roleIdList);
+
+    /**
+     * 根据用户名称查询用户信息
+     * @param username
+     * @return
+     */
+    Admin getAdminByLoginAcct(String username);
 }

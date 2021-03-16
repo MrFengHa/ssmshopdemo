@@ -187,4 +187,20 @@ public class AdminServiceImpl implements AdminService {
             adminMapper.insertNewRelationship(adminId, roleIdList);
         }
     }
+
+    /**
+     * 根据用户名称查询用户信息
+     *
+     * @param username
+     * @return
+     */
+    @Override
+    public Admin getAdminByLoginAcct(String username) {
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andLoginAcctEqualTo(username);
+        List<Admin> admins = adminMapper.selectByExample(adminExample);
+        Admin admin =admins.get(0);
+        return admin;
+    }
 }
