@@ -29,6 +29,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -54,6 +63,9 @@
         <!--响应json-->
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
+
+
+
     <welcome-file-list>
         <welcome-file>/WEB-INF/admin-login.jsp</welcome-file>
     </welcome-file-list>
