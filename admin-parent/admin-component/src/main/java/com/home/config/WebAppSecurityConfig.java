@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -32,6 +33,8 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -82,7 +85,10 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //临时使用内存登录模式测试代码
-        auth.inMemoryAuthentication().withUser("tom").password(getPasswordEncoder().encode("123123")).roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("tom").password(getPasswordEncoder().encode("123123")).roles("ADMIN");
+
+        //正式功能中使用基于数据库的认证
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean
