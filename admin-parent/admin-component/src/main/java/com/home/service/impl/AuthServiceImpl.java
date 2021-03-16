@@ -62,4 +62,15 @@ public class AuthServiceImpl implements AuthService {
             authMapper.insertNewRelationship(roleId,authIdList);
         }
     }
+
+    /**
+     * 根据用户ID查询权限名称
+     *
+     * @param adminId
+     * @return
+     */
+    @Override
+    public List<String> getAssignedAuthNameByAdminId(Integer adminId) {
+        return authMapper.selectAssignedAuthNameByAdminId(adminId);
+    }
 }

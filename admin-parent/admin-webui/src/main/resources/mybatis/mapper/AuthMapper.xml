@@ -153,6 +153,12 @@
     <select id="selectAssignedAuthIdByRoleId" resultType="java.lang.Integer">
         select auth_id from inner_role_auth where role_id=#{roleId}
     </select>
+    <select id="selectAssignedAuthNameByAdminId" resultType="java.lang.String">
+        select distinct t_auth.name from t_auth
+        left join inner_role_auth ira on t_auth.id = ira.auth_id
+        left join inner_admin_role iar on ira.role_id = iar.role_id
+        where iar.admin_id=#{adminId} and t_auth.name != "" and t_auth.name is not null
+    </select>
     <update id="updateByExampleSelective" parameterType="map">
     update t_auth
     <set>
