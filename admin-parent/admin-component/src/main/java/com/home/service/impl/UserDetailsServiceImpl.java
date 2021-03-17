@@ -64,9 +64,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authName);
             authorities.add(simpleGrantedAuthority);
         }
-        System.out.println(admin.getUserPswd());
-        admin.setUserPswd(passwordEncoder.encode(admin.getUserPswd()));
-        System.out.println(admin.getUserPswd());
         //9.封装SecurityAdmin对象
         SecurityAdmin securityAdmin = new SecurityAdmin(admin, authorities);
         return securityAdmin;

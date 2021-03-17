@@ -12,6 +12,7 @@ import com.home.util.CrowdConstant;
 import com.home.util.CrowdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +30,8 @@ import java.util.Objects;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 保存用户
@@ -39,7 +42,8 @@ public class AdminServiceImpl implements AdminService {
     public void saveAdmin(Admin admin) {
         //1.密码加密
         String userPswd = admin.getUserPswd();
-        userPswd = CrowdUtil.md5(userPswd);
+//        userPswd = CrowdUtil.md5(userPswd);
+        userPswd = passwordEncoder.encode(userPswd);
         admin.setUserPswd(userPswd);
         //2.生成创建时间
         Date date = new Date();
