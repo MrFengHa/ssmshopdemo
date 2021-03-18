@@ -26,6 +26,9 @@ public class SecurityAdmin extends User {
         super(originalAdmin.getLoginAcct(), originalAdmin.getUserPswd(), authorities);
         //给蓓蕾的this.originalAdmin赋值
         this.originalAdmin = originalAdmin;
+
+        //将原始Admin对象中的密码擦除
+        this.originalAdmin.setUserPswd(null);
     }
 
     /**
