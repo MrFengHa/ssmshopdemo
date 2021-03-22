@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <div class="col-sm-3 col-md-2 sidebar">
     <div class="tree">
         <ul style="padding-left:0px;" class="list-group">
@@ -15,9 +16,11 @@
             <li class="list-group-item tree-closed">
                 <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span>
                 <ul style="margin-top:10px;display:none;">
+                    <security:authorize access="hasAuthority('user:get')">
                     <li style="height:30px;">
                         <a href="admin/get/page.html"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
                     </li>
+                    </security:authorize>
                     <li style="height:30px;">
                         <a href="role/to/page.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a>
                     </li>
