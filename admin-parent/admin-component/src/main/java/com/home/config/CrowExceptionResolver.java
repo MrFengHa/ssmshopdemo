@@ -24,6 +24,19 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowExceptionResolver {
 
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView resolveException(
+            //实际捕获到的异常类型
+            Exception exception,
+            //当前请求对象
+            HttpServletRequest request,
+            //当前响应对象
+            HttpServletResponse response) throws IOException {
+
+        String viewName = "admin-login";
+        return commonResolve(viewName, exception, request, response);
+    }
+
     /**
      * 将一个具体的异常类型和一个方法关联起来
      *

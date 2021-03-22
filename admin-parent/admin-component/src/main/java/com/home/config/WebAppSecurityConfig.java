@@ -1,10 +1,12 @@
 package com.home.config;
 
+import com.home.util.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,6 +34,8 @@ import java.io.IOException;
  */
 @Configuration
 @EnableWebSecurity
+//启动全局方法控制功能
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -59,8 +63,27 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/ztree/**")
                 .permitAll()
+                .antMatchers("/admin/get/page.html")
+                .access("hasRole('经理') or hasAuthority('user:get')")
+                .antMatchers("/admin/save.html")
+                .hasAuthority("user:save")
+                .antMatchers("/role/get/page/info.json")
+                .hasRole("部长")
                 .anyRequest()
                 .authenticated()
+                //权限不够前往的页面
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(new AccessDeniedHandler(){
+
+                    @Override
+                    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
+                        httpServletRequest.setAttribute("exception",new Exception(CrowdConstant.MESSAGE_ACCESS_DENIED));
+                        httpServletRequest.getRequestDispatcher("/WEB-INF/system-error.jsp").forward(httpServletRequest,httpServletResponse);
+
+
+                    }
+                })
                 .and().csrf().disable()
                 .formLogin()//开启表单登录
                 .loginPage("/admin/to/login/page.html")
@@ -68,7 +91,6 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/security/do/login.html")
                 //指定登录成功后前往的地址
                 .defaultSuccessUrl("/admin/to/main/page.html")
-
                 //账号的请求参数名称
                 .usernameParameter("loginAcct")
                 //密码的请求参数名称
